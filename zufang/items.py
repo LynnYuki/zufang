@@ -16,7 +16,7 @@ class ZufangItem(scrapy.Item):
     #房屋描述
     description = scrapy.Field()
     #租房方式类别
-    type_ = scrapy.Field()
+    typelist = scrapy.Field()
     #房屋地址
     address = scrapy.Field()
     #图片地址
