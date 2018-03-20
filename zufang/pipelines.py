@@ -20,6 +20,7 @@ class ZufangPipeline(object):
 			passwd=settings.MYSQL_PASSWD,
 			charset='utf8',
 			use_unicode=True)
+
 		# 使用cursor执行增删改查
 		self.cursor = self.connect.cursor()
 
@@ -39,8 +40,9 @@ class ZufangPipeline(object):
 				# 插入数据
 		insert_sql="insert into zufanginfo(title,money,description,typelist,address,img)values('{}','{}','{}','{}','{}','{}')".format(item['title'], item['money'], item['description'], item['typelist'], item['address'], item['img'])
 		print(insert_sql)
+		# 执行SQL语句
 		self.cursor.execute(insert_sql)
-			# 执行SQL语句
+		# 提交数据
 		self.connect.commit()
 		# except Exception as error:
 		# 	# 		#打印错误信息
