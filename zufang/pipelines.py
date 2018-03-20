@@ -26,27 +26,29 @@ class ZufangPipeline(object):
 
 	def process_item(self, item, spider):
 		print(spider.name, 'pipelines')
-		# try:
-		# 	# 查重处理
-		# 	self.cursor.execute(
-		# 		"select *  from zufanginfo where img = %s", item['img'])
-		# 	# 是否有重复数据
-		# 	repetition = self.cursor.fetchone()
-		#
-		# 	# 重复
-		# 	if repetition:
-		# 		pass
-		# 	else:
+		try:
+			# 查重处理
+			self.cursor.execute(
+				"SELECT *  FROM zufanginfo WHERE img = %s", item['img'])
+			# 是否有重复数据
+			repetition = self.cursor.fetchone()
+
+			# 重复
+			if repetition:
+				pass
+			else:
 				# 插入数据
-		insert_sql="insert into zufanginfo(title,money,description,typelist,address,img)values('{}','{}','{}','{}','{}','{}')".format(item['title'], item['money'], item['description'], item['typelist'], item['address'], item['img'])
-		print(insert_sql)
-		# 执行SQL语句
-		self.cursor.execute(insert_sql)
-		# 提交数据
-		self.connect.commit()
-		# except Exception as error:
-		# 	# 		#打印错误信息
-		# 	print(error)
-		return item
-	def spider_close(self,spider):
-			self.connect.close()
+				insert_sql = "insert into zufanginfo(title,money,description,typelist,address,img)values('{}','{}','{}','{}','{}','{}')".format(
+					item['title'], item['money'], item['description'], item['typelist'], item['address'], item['img'])
+			print(insert_sql)
+			# 执行SQL语句
+			self.cursor.execute(insert_sql)
+			# 提交数据
+			self.connect.commit()
+		except Exception as error:
+			# 打印错误信息
+			print(error)
+			return item
+
+	def spider_close(self, spider):
+		self.connect.close()

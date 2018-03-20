@@ -23,7 +23,13 @@ class GanjiSpider(scrapy.Spider):
 			# 地址
 			address = info.xpath('./dl/dd[3]/span/a/text()').extract()
 			address_0 = address[0]+'区'
-			item['address'] = address_0+''.join(address[1:3])
+			address_else = info.xpath('./dl/dd[3]/span/text()[3]').extract()
+			# if len(address)<2:
+			# 	print((len(address)))
+			item['address'] = address_0 + ''.join(address_else)
+			# else:
+			# 	item['address'] = address_0 + ''.join(address[1:3])
+
 
 			# 房屋信息描述
 			description = info.xpath('./dl/dd[2]/span[position()>1]/text()').extract()
@@ -32,9 +38,13 @@ class GanjiSpider(scrapy.Spider):
 
 			# 租房类型
 			item['typelist'] = info.xpath('./dl/dd[2]/span[1]/text()').extract()[0]
+
 			# 图片地址
-			
-			item['img'] = info.xpath('./dl/dt/div/a/img/@src').extract()[0]
+			img_url = info.xpath('./dl/dt/div/a/img/@data-original ').extract()
+			if len(img_url):
+				item['img'] = "".join(img_url)
+			else:
+				item['img'] = info.xpath('./dl/dt/div/a/img/@src ').extract()[0]
 			items.append(item)
 			yield item
 		# #翻页
