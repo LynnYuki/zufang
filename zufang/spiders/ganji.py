@@ -1,41 +1,39 @@
 import scrapy
 from zufang.items import ZufangItem
 class GanjiSpider(scrapy.Spider):
-	#定义爬虫类
-
+	# 定义爬虫类
 	name = "zufang"
-	#爬取域名
+	# 爬取域名
 	allowed_domain = ['http://cs.ganji.com']
-	#爬取页面地址
+	# 爬取页面地址
 	start_urls = ['http://cs.ganji.com/fang1/']
-	#解析数据
+	# 解析数据
 
 	def parse(self, response):
 		selector = scrapy.Selector(response)
 		items = []
 		item = ZufangItem()
-		address_info = ''
-		# description_info = ''
 		for info in selector.xpath('//div[@class="f-list-item ershoufang-list"]'):
-			#租房标题
+			# 租房标题
 			item['title'] = info.xpath('./dl/dd[1]/a/text()').extract()[0]
-			#价格
+
+			# 价格
 			item['money'] = info.xpath('./dl/dd[5]/div[1]/span[1]/text()').extract()[0]
-			#地址
+
+			# 地址
 			address = info.xpath('./dl/dd[3]/span/a/text()').extract()
-			# for adds in address:
-			# 	address_info += adds.strip()
-			item['address'] = ','.join(address)
-			print(address)
-			#房屋信息描述
+			address_0 = address[0]+'区'
+			item['address'] = address_0+''.join(address[1:3])
+
+			# 房屋信息描述
 			description = info.xpath('./dl/dd[2]/span[position()>1]/text()').extract()
-			# for desc in description:
-				# description_info += desc.strip()
 			item['description'] = ','.join(description)
 			print(description)
-			#租房类型
+
+			# 租房类型
 			item['typelist'] = info.xpath('./dl/dd[2]/span[1]/text()').extract()[0]
-			#图片地址
+			# 图片地址
+			
 			item['img'] = info.xpath('./dl/dt/div/a/img/@src').extract()[0]
 			items.append(item)
 			yield item
