@@ -7,7 +7,7 @@
 
 from scrapy import signals
 import random
-
+from zufang.settings import IPPOOL
 
 class ZufangSpiderMiddleware(object):
 	# Not all methods need to be defined. If a method is not defined,
@@ -127,10 +127,14 @@ class UserAgentMiddleware(object):
 		"Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
 	]
 	UA = random.choice(user_agent_list)
-
+	def __init__(self, ip=''):
+		self.ip = ip
 	def process_request(self, request, spider):
 		UA = random.choice(self.user_agent_list)
 		if UA:
 			request.headers['USER_AGENT'] = UA
 		else:
 			request.headers['USER_AGENT'] = " Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/535.24 (KHTML, like Gecko) Chrome/19.0.1055.1 Safari/535.24"
+		thisip = random.choice(IPPOOL)
+		print("this is ip:"+thisip["ip_port"])
+		request.meta['proxy'] = "http://"+thisip["ip_port"]

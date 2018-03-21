@@ -32,11 +32,19 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
-
+IPPOOL = [
+    {"ip_port": "114.113.126.86:80"},
+    {"ip_port": "58.251.230.139:9797"},
+    {"ip_port": "222.217.19.248:8080"},
+    {"ip_port": "218.20.55.245:9797"},
+    {"ip_port": "113.92.95.233:9797"},
+    {"ip_port": "117.78.52.201:3128"},
+    {"ip_port": "218.56.132.154:8080"}
+]
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
 
@@ -60,6 +68,8 @@ COOKIES_ENABLED = False
 DOWNLOADER_MIDDLEWARES = {
    # 'zufang.middlewares.ZufangDownloaderMiddleware': 543,
      'zufang.middlewares.UserAgentMiddleware': 543,
+     'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 543,
+     'zufang.middlewares.ZufangSpiderMiddleware': 125
 }
 
 # Enable or disable extensions

@@ -1,6 +1,11 @@
 import scrapy
 from zufang.items import ZufangItem
 class GanjiSpider(scrapy.Spider):
+	def __init__(self):
+		self.headers = {
+			'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+			'Accept-Encoding': 'gzip,deflate',
+		}
 	# 定义爬虫类
 	name = "zufang"
 	# 爬取域名
@@ -39,16 +44,16 @@ class GanjiSpider(scrapy.Spider):
 			item['typelist'] = info.xpath('./dl/dd[2]/span[1]/text()').extract()[0]
 
 			# 图片地址
-			img_url = info.xpath('./dl/dt/div/a/img/@data-original ').extract()
+			img_url = info.xpath('./dl/dt/div/a/img/@data-original').extract()
 			if len(img_url):
 				item['img'] = "".join(img_url)
 			else:
-				item['img'] = info.xpath('./dl/dt/div/a/img/@src ').extract()[0]
+				item['img'] = info.xpath('./dl/dt/div/a/img/@src').extract()[0]
 			items.append(item)
 			yield item
-		# #翻页
-		# next_page = response.xpath(".//*[@id='f_mew_list']/div[6]/div[1]/div[4]/div/div/ul/li[position()<=5]/a/@href").extract()
-		# if next_page:
-		# 	url = response.urljoin(next_page[0].extract())
-		# 	#爬每一页
-		# 	yield  scrapy.Request(url,self.parse)
+		# 翻页
+		next_page = response.xpath(".//div[@class='pageBox']/ul/li/a[@class='next']/@href").extract_first()
+		if next_page:
+			url = response.urljoin(next_page)
+			# 爬每一页
+			yield scrapy.Request(url, self.parse)
