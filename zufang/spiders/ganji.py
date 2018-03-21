@@ -23,13 +23,12 @@ class GanjiSpider(scrapy.Spider):
 			# 地址
 			address = info.xpath('./dl/dd[3]/span/a/text()').extract()
 			address_0 = address[0]+'区'
-			address_else = info.xpath('./dl/dd[3]/span/text()[3]').extract()
-			# if len(address)<2:
-			# 	print((len(address)))
-			item['address'] = address_0 + ''.join(address_else)
-			# else:
-			# 	item['address'] = address_0 + ''.join(address[1:3])
-
+			address_else = info.xpath('normalize-space(./dl/dd[3]/span/text()[3])').extract()
+			if len(address) > 2:
+				print((len(address)))
+				item['address'] = address_0 + '-'.join(address[1:3])
+			else:
+				item['address'] = address_0 + ''.join(address[1]) + '-'.join(address_else)
 
 			# 房屋信息描述
 			description = info.xpath('./dl/dd[2]/span[position()>1]/text()').extract()
