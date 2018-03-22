@@ -9,17 +9,17 @@ import scrapy
 
 
 class ZufangItem(scrapy.Item):
-    #标题
+    # 标题
     title = scrapy.Field()
-    #价格
+    # 价格
     money = scrapy.Field()
-    #房屋描述
+    # 房屋描述
     description = scrapy.Field()
-    #租房方式类别
+    # 租房方式类别
     typelist = scrapy.Field()
-    #房屋地址
+    # 房屋地址
     address = scrapy.Field()
-    #图片地址
+    # 图片地址
     img = scrapy.Field()
 
 

@@ -49,6 +49,7 @@ class ZufangPipeline(object):
 			# 打印错误信息
 			print(error)
 			return item
-
+			# 关闭数据库
 	def spider_close(self, spider):
+		self.cursor.close()
 		self.connect.close()

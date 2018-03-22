@@ -29,12 +29,14 @@ class GanjiSpider(scrapy.Spider):
 			address = info.xpath('./dl/dd[3]/span/a/text()').extract()
 			address_0 = address[0]+'区'
 			address_else = info.xpath('normalize-space(./dl/dd[3]/span/text()[3])').extract()
-			if len(address) > 2:
+			# 剔除地址中无用数据
+			if len(address) > 2 and ' ' not in address:
 				print((len(address)))
 				item['address'] = address_0 + '-'.join(address[1:3])
-			else:
+			elif len(address) == 2 and ' ' not in address:
 				item['address'] = address_0 + ''.join(address[1]) + '-'.join(address_else)
-
+			else:
+				continue
 			# 房屋信息描述
 			description = info.xpath('./dl/dd[2]/span[position()>1]/text()').extract()
 			item['description'] = ','.join(description)

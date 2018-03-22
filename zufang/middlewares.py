@@ -102,8 +102,8 @@ class ZufangDownloaderMiddleware(object):
 
 	def spider_opened(self, spider):
 		spider.logger.info('Spider opened: %s' % spider.name)
-	# 设置随机生成请求头
 
+	# 设置随机生成请求头
 
 class UserAgentMiddleware(object):
 	user_agent_list = [

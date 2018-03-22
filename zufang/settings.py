@@ -37,13 +37,13 @@ DOWNLOAD_DELAY = 3
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
 IPPOOL = [
-    {"ip_port": "114.113.126.86:80"},
-    {"ip_port": "58.251.230.139:9797"},
-    {"ip_port": "222.217.19.248:8080"},
-    {"ip_port": "218.20.55.245:9797"},
-    {"ip_port": "113.92.95.233:9797"},
-    {"ip_port": "117.78.52.201:3128"},
-    {"ip_port": "218.56.132.154:8080"}
+    {"ip_port": "115.221.121.10:44154"},
+    # {"ip_port": "114.215.95.188:3128"},
+    # {"ip_port": "222.217.19.248:8080"},
+    # {"ip_port": "218.20.55.245:9797"},
+    # {"ip_port": "113.92.95.233:9797"},
+    # {"ip_port": "117.78.52.201:3128"},
+    # {"ip_port": "218.56.132.154:8080"}
 ]
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = False
