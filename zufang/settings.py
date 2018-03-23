@@ -36,8 +36,9 @@ DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
+# ip代理 失效请更换代理地址
 IPPOOL = [
-    {"ip_port": "115.221.121.10:44154"},
+    {"ip_port": "180.107.56.8:34260"},
     # {"ip_port": "114.215.95.188:3128"},
     # {"ip_port": "222.217.19.248:8080"},
     # {"ip_port": "218.20.55.245:9797"},
