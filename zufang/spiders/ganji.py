@@ -11,7 +11,7 @@ class GanjiSpider(scrapy.Spider):
 	# 爬取域名
 	allowed_domain = ['http://cs.ganji.com']
 	# 爬取页面地址
-	start_urls = ['http://cs.ganji.com/fang1/o86']
+	start_urls = ['http://cs.ganji.com/fang1']
 	# 解析数据
 
 	def parse(self, response):
