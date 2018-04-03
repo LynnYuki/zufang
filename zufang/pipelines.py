@@ -38,8 +38,8 @@ class ZufangPipeline(object):
 				pass
 			else:
 				# 插入数据
-				insert_sql = "insert into zufanginfo(title,money,description,typelist,address,img)values('{}','{}','{}','{}','{}','{}')".format(
-					item['title'], item['money'], item['description'], item['typelist'], item['address'], item['img'])
+				insert_sql = "insert into zufanginfo(title,price,pattern,type,address,img)values('{}','{}','{}','{}','{}','{}')".format(
+					item['title'], item['price'], item['pattern'], item['type'], item['address'], item['img'])
 			print(insert_sql)
 			# 执行SQL语句
 			self.cursor.execute(insert_sql)

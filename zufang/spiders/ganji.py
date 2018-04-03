@@ -8,7 +8,7 @@ class GanjiSpider(scrapy.Spider):
 		}
 	# 定义爬虫类
 	name = "zufang"
-	# 爬取域名
+	# 人人人爬取域名
 	allowed_domain = ['http://cs.ganji.com']
 	# 爬取页面地址
 	start_urls = ['http://cs.ganji.com/fang1']
@@ -23,12 +23,13 @@ class GanjiSpider(scrapy.Spider):
 			item['title'] = info.xpath('./dl/dd[1]/a/text()').extract()[0]
 
 			# 价格
-			item['money'] = info.xpath('./dl/dd[5]/div[1]/span[1]/text()').extract()[0]
+			item['price'] = info.xpath('./dl/dd[5]/div[1]/span[1]/text()').extract()[0]
 
 			# 地址
 			address = info.xpath('./dl/dd[3]/span/a/text()').extract()
 			address_0 = address[0]+'区'
 			address_else = info.xpath('normalize-space(./dl/dd[3]/span/text()[3])').extract()
+
 			# 剔除地址中无用数据
 			if len(address) > 2 and ' ' not in address:
 				print((len(address)))
@@ -37,13 +38,14 @@ class GanjiSpider(scrapy.Spider):
 				item['address'] = address_0 + ''.join(address[1]) + '-'.join(address_else)
 			else:
 				continue
+
 			# 房屋信息描述
 			description = info.xpath('./dl/dd[2]/span[position()>1]/text()').extract()
-			item['description'] = ','.join(description)
+			item['pattern'] = ','.join(description)
 			print(description)
 
 			# 租房类型
-			item['typelist'] = info.xpath('./dl/dd[2]/span[1]/text()').extract()[0]
+			item['type'] = info.xpath('./dl/dd[2]/span[1]/text()').extract()[0]
 
 			# 图片地址
 			img_url = info.xpath('./dl/dt/div/a/img/@data-original').extract()
@@ -53,6 +55,7 @@ class GanjiSpider(scrapy.Spider):
 				item['img'] = info.xpath('./dl/dt/div/a/img/@src').extract()[0]
 			items.append(item)
 			yield item
+
 		# 翻页
 		next_page = response.xpath(".//div[@class='pageBox']/ul/li/a[@class='next']/@href").extract_first()
 		if next_page:

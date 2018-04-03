@@ -12,11 +12,11 @@ class ZufangItem(scrapy.Item):
     # 标题
     title = scrapy.Field()
     # 价格
-    money = scrapy.Field()
+    price = scrapy.Field()
     # 房屋描述
-    description = scrapy.Field()
+    pattern = scrapy.Field()
     # 租房方式类别
-    typelist = scrapy.Field()
+    type = scrapy.Field()
     # 房屋地址
     address = scrapy.Field()
     # 图片地址
